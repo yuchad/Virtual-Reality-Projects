@@ -16,11 +16,13 @@ You should have the following folder structure:
     -   .gitignore (Example)
     -   attribution.txt (Example)
     -   readme.md (This file)
+    
 ________________
 ### Working on your labs:
 To get your lab files on any PC, you can use [Git](https://git-scm.com/download).
 To clone your labs, use the following command:
 
+    
     git clone https://gitlab.scs.ryerson.ca/*SCS_USERNAME*/CPS841-Labs.git
 
 When prompted, use the following credentials:
