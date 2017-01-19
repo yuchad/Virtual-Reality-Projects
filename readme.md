@@ -34,9 +34,9 @@ The files that are ~~crossed out~~ are not essential to your project. In fact, t
 ### Saving your work.
 Periodically, as you're working, it's a good idea to commit and push. (Remember that the lab computers get wiped when you log off). To do this, enter the following commands:
 
-git add *
-git commit -m "A brief message here"
-git push
+    git add *
+    git commit -m "A brief message here"
+    git push
 
 ### Submitting your work.
 Any work you push is automatically submitted. However, submissions will only be accepted until 23:59:59 PM (Toronto time) on the assignment's due date. Don't worry if you're missing attributions in your partial commits as long as you add them before the final due date.
