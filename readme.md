@@ -1,6 +1,9 @@
 # Lab Submission Guidlines
 
 Although labs in this course are marked during the lab period, you are still expected to submit you are still expected to submit your source files via GitLab. Failing to do so correctly will result in a 0 for the Lab/Assignment. The guidelines below will help you make sure that you only submit the required files and folders. Furthermore, you are required to attribute sources for all materials included in your projects 
+
+If you need help with any of these steps, email [dcamaren@ryerson.ca](mailto:dcamaren@ryerson.ca)
+
 ______________
 ### Setting up your project:
 __\*You only need to do this once per semester\*__
@@ -21,7 +24,9 @@ ________________
 To get your lab files on any PC, you can use [Git](https://git-scm.com/download).
 To clone your labs, use the following command:
 
+	
     git clone https://gitlab.scs.ryerson.ca/*SCS_USERNAME*/CPS841-Labs.git
+	
 
 When prompted, use the following credentials:
 
