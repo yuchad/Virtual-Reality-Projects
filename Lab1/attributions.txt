@@ -1,8 +1,7 @@
 // Delete two of the following three lines, leaving only the true statement and fill in the blanks.
 
 1) I've completed this statement by myself entirely.
-2) I've recieved verbal/minor help from _________________
-3) I've recieved major help/code from ______________________
+
 
 
 //	Place your attributions below:
