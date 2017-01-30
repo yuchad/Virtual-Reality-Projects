@@ -31,6 +31,29 @@ public class RaycastShoot : MonoBehaviour {
             nextFire = Time.time + fireRate;
             StartCoroutine(ShotEffect());
             Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            laserLine.SetPosition(0, gunEnd.position);
+            if(Physics.Raycast(rayOrigin,fpsCam.transform.forward,out hit, weaponRange))
+            {
+                laserLine.SetPosition(1, hit.point);
+
+                ShootableBox health = hit.collider.GetComponent<ShootableBox>();
+
+                if(health != null)
+                {
+                    health.Damage(gunDamage);
+                }
+
+                if(hit.rigidbody != null)
+                {
+                    hit.rigidbody.AddForce(-hit.normal * hitForce);
+                }
+            }
+            else
+            {
+                laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+            }
         }
 	}
 
