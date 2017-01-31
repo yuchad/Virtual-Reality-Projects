@@ -5,11 +5,11 @@ using UnityEngine;
 public class ControllerInput : MonoBehaviour {
 
 
-    public Transform top;
     public Rigidbody redBalloon;
     public Rigidbody blueBalloon;
     public Rigidbody greenBalloon;
     public Rigidbody yellowBalloon;
+   
 
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device contDevice;
@@ -17,7 +17,7 @@ public class ControllerInput : MonoBehaviour {
     void Start() {
         trackedObj = this.GetComponent<SteamVR_TrackedObject>();
         contDevice = SteamVR_Controller.Input((int)trackedObj.index);
-
+       
     }
 
 
@@ -27,7 +27,7 @@ public class ControllerInput : MonoBehaviour {
 
     void Update()
     {
-        if (contDevice.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
+        if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
         {
             Vector2 touchpad = (contDevice.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad));
             print(touchpad);
@@ -35,25 +35,34 @@ public class ControllerInput : MonoBehaviour {
             //control up on trackpad
             if(touchpad.y > 0.65f)
             {
-                print("Touching Up");
+                Rigidbody redBalloonInstance = Instantiate(redBalloon);
+                redBalloonInstance.transform.parent = this.transform;
+                redBalloonInstance.transform.position = this.transform.position;
+
             }
 
             //control down on trackpad
             else if (touchpad.y < -0.65f)
             {
-                print("Touching down");
+                Rigidbody blueBalloonInstance = Instantiate(blueBalloon);
+                blueBalloonInstance.transform.parent = this.transform;
+                blueBalloonInstance.transform.position = this.transform.position;
             }
 
             //Control left on the touchpad
             else if (touchpad.x < 0.65f)
             {
-                print("Touching Left");
+                Rigidbody greenBalloonInstance = Instantiate(greenBalloon);
+                greenBalloonInstance.transform.parent = this.transform;
+                greenBalloonInstance.transform.position = this.transform.position;
             }
 
             //Control right on the touchpad
             else if (touchpad.x > -0.65f)
             {
-                print("Touching Right");
+                Rigidbody yellowBalloonInstance = Instantiate(yellowBalloon);
+                yellowBalloonInstance.transform.parent = this.transform;
+                yellowBalloonInstance.transform.position = this.transform.position;
             }
 
         }
