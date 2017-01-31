@@ -103,14 +103,14 @@ public class ControllerInput : MonoBehaviour {
         Vector3 endScale = new Vector3(0.4f, 0.4f, 0.4f);
         float currentTime = 0.0f;
 
-        do
+  
+       
+    if(currentTime <= time)
         {
             balloonInstance.transform.localScale = Vector3.Lerp(originalScale, endScale, currentTime / time);
             currentTime += Time.deltaTime;
             yield return null;
-        } while (currentTime <= time);
-       
-    
+        }
         
     }
 
