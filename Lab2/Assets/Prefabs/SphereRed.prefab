@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23999356394613528}
   - component: {fileID: 54237298401646168}
   - component: {fileID: 75236088204637830}
+  - component: {fileID: 114511556139131294}
   m_Layer: 0
   m_Name: SphereRed
   m_TagString: Untagged
@@ -108,6 +109,17 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &114511556139131294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030071738661718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf7f6b5020759a44baabb552e7b8e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135968672375056700
 SphereCollider:
   m_ObjectHideFlags: 1
