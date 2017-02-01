@@ -29,9 +29,9 @@ public class ControllerInput : MonoBehaviour {
     private Rigidbody balloonInstance;
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device contDevice;
+   
     // Use this for initialization
     void Start() {
-        startTime = Time.time;
         trackedObj = this.GetComponent<SteamVR_TrackedObject>();
         contDevice = SteamVR_Controller.Input((int)trackedObj.index);
         maxSize = 0.12f;
@@ -41,42 +41,36 @@ public class ControllerInput : MonoBehaviour {
 
 
     void FixedUpdate() {
-       
+
     }
 
-    void Update()
-    {
-        if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
-        {
+    void Update() {
+        if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
             Vector2 touchpad = (contDevice.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad));
 
             //control up on trackpad
-            if (touchpad.y > 0.65f)
-            {
+            if (touchpad.y > 0.65f) {
                 makeBalloon(redBalloon);
                 // releaseBaloon();
 
             }
 
             //control down on trackpad
-            else if (touchpad.y < -0.65f)
-            {
+            else if (touchpad.y < -0.65f) {
                 makeBalloon(blueBalloon);
                 //releaseBaloon();
 
             }
 
             //Control left on the touchpad
-            else if (touchpad.x < 0.65f)
-            {
+            else if (touchpad.x < 0.65f) {
                 makeBalloon(greenBalloon);
-               // releaseBaloon();
+                // releaseBaloon();
 
             }
 
             //Control right on the touchpad
-            else if (touchpad.x > -0.65f)
-            {
+            else if (touchpad.x > -0.65f) {
                 makeBalloon(yellowBalloon);
                 //releaseBaloon();
 
@@ -85,29 +79,27 @@ public class ControllerInput : MonoBehaviour {
 
         }
 
-        if (contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
-        {
+        if (contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad)) {
             releaseBaloon();
         }
 
-        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Touchpad)))
-        {
-            if(balloonInstance.transform.localScale.x < maxSize) {
+        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Touchpad))) {
+            if (balloonInstance.transform.localScale.x < maxSize) {
                 balloonInstance.transform.localScale += new Vector3(initialScale, initialScale, initialScale);
             }
-            
+
         }
 
-        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Trigger)) ){
-            
-           
+        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Trigger))) {
+
+
             DestroyBaloon health;
             StartCoroutine(ShotEffect());
-            
+
             laserLine.SetPosition(0, this.transform.position);
-            
+
             RaycastHit hit;
-            if (Physics.Raycast(this.transform.position, this.transform.forward , out hit, weaponRange)) {
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, weaponRange)) {
                 health = hit.collider.gameObject.GetComponent<DestroyBaloon>();
                 laserLine.SetPosition(1, hit.point);
                 if (health != null) {
@@ -120,12 +112,12 @@ public class ControllerInput : MonoBehaviour {
                 laserLine.SetPosition(1, this.transform.position + this.transform.forward * weaponRange);
             }
 
-           
+
 
 
         }
 
-        if ((contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))){
+        if ((contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))) {
             laserLine.enabled = false;
         }
 
@@ -135,30 +127,26 @@ public class ControllerInput : MonoBehaviour {
 
 
 
-      
 
-    void makeBalloon(Rigidbody balloon)
-    {
+
+    void makeBalloon(Rigidbody balloon) {
         balloonInstance = Instantiate(balloon);
         balloonInstance.transform.parent = this.transform;
         balloonInstance.transform.position = this.transform.position + this.transform.forward * 0.09f;
-        
+
 
     }
 
-    void releaseBaloon()
-    {
-        if (balloonInstance != null)
-        {
+    void releaseBaloon() {
+        if (balloonInstance != null) {
             balloonInstance.transform.parent = null;
             balloonInstance.GetComponent<ConstantForce>().enabled = true;
             balloonInstance = null;
         }
-       
+
     }
 
-    private IEnumerator ShotEffect()
-    {
+    private IEnumerator ShotEffect() {
         laserLine.enabled = true;
         yield return null;
 
