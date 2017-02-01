@@ -15,7 +15,6 @@ public class ControllerInput : MonoBehaviour {
     public float fireRate = 0.25f;
     public float weaponRange = 50f;//50 units of range
     public float hitForce = 100f;
-    public Transform gunEnd;
 
     private WaitForSeconds shotDuration = new WaitForSeconds(0.7f);//determine how long to keep in game view
     private LineRenderer laserLine;
@@ -102,37 +101,24 @@ public class ControllerInput : MonoBehaviour {
             
         }
 
-        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Trigger)) && Time.time > nextFire){
+        if ((contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) && Time.time > nextFire){
             
             nextFire = Time.time + fireRate;
-            
+            DestroyBaloon health;
+            int layerMask = 1 << 8;
             StartCoroutine(ShotEffect());
-            /*
-            Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+            laserLine.SetPosition(1, this.transform.position + this.transform.forward * 30);
             RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward * 10, out hit, 10.0f, layerMask)) {
+                health = hit.collider.gameObject.GetComponent<DestroyBaloon>();
 
-            laserLine.SetPosition(0, this.transform.position + this.transform.forward);
-            if(Physics.Raycast(rayOrigin,fpsCam.transform.forward,out hit, weaponRange))
-            {
-                laserLine.SetPosition(1, hit.point);
-
-                DestroyBaloon health = hit.collider.GetComponent<DestroyBaloon>();
-
-                if (health != null)
-                {
+                if (health != null) {
+                    // Call the damage function of that script, passing in our gunDamage variable
                     health.Damage(gunDamage);
                 }
 
-                if (hit.rigidbody != null)
-                {
-                    hit.rigidbody.AddForce(-hit.normal * hitForce);
-                }
             }
-            else
-            {
-                laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
-            }*/
-            print("hello");
+
         }
 
 
