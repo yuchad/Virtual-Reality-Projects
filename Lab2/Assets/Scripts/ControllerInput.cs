@@ -107,8 +107,10 @@ public class ControllerInput : MonoBehaviour {
             DestroyBaloon health;
             int layerMask = 1 << 8;
             StartCoroutine(ShotEffect());
-            laserLine.SetPosition(1, this.transform.position + this.transform.forward * 30);
-            RaycastHit hit;
+            
+            laserLine.SetPosition(0, this.transform.position);
+            laserLine.SetPosition(1, this.transform.position + this.transform.forward );
+            /*RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward * 10, out hit, 10.0f, layerMask)) {
                 health = hit.collider.gameObject.GetComponent<DestroyBaloon>();
 
@@ -117,7 +119,7 @@ public class ControllerInput : MonoBehaviour {
                     health.Damage(gunDamage);
                 }
 
-            }
+            }*/
 
         }
 
