@@ -11,7 +11,8 @@ public class ControllerInput : MonoBehaviour {
     public Rigidbody yellowBalloon;
     public float startTime;
 
-
+    private float initialScale;
+    private float maxSize;
     private Vector3 baseScale;
     private Vector3 finalScale;
     private bool blowUpFinished;
@@ -23,6 +24,8 @@ public class ControllerInput : MonoBehaviour {
         startTime = Time.time;
         trackedObj = this.GetComponent<SteamVR_TrackedObject>();
         contDevice = SteamVR_Controller.Input((int)trackedObj.index);
+        maxSize = 0.12f;
+        initialScale = 0.005f;
     }
 
 
@@ -40,7 +43,7 @@ public class ControllerInput : MonoBehaviour {
             if (touchpad.y > 0.65f)
             {
                 makeBalloon(redBalloon);
-                releaseBaloon();
+                // releaseBaloon();
 
             }
 
@@ -48,7 +51,7 @@ public class ControllerInput : MonoBehaviour {
             else if (touchpad.y < -0.65f)
             {
                 makeBalloon(blueBalloon);
-                releaseBaloon();
+                //releaseBaloon();
 
             }
 
@@ -56,7 +59,7 @@ public class ControllerInput : MonoBehaviour {
             else if (touchpad.x < 0.65f)
             {
                 makeBalloon(greenBalloon);
-                releaseBaloon();
+               // releaseBaloon();
 
             }
 
@@ -64,13 +67,32 @@ public class ControllerInput : MonoBehaviour {
             else if (touchpad.x > -0.65f)
             {
                 makeBalloon(yellowBalloon);
-                releaseBaloon();
+                //releaseBaloon();
 
 
             }
 
         }
+
+        if (contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
+        {
+            releaseBaloon();
+            
+
+        }
+
+        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Touchpad)))
+        {
+            if(balloonInstance.transform.localScale.x < maxSize) {
+                balloonInstance.transform.localScale += new Vector3(initialScale, initialScale, initialScale);
+            }
+            
+        }
+
+
     }
+
+
 
       
 
@@ -78,8 +100,8 @@ public class ControllerInput : MonoBehaviour {
     {
         balloonInstance = Instantiate(balloon);
         balloonInstance.transform.parent = this.transform;
-        balloonInstance.transform.position = this.transform.position + this.transform.forward * 0.12f;
-        balloonInstance.transform.localScale += Vector3.one * 0.02f * Time.deltaTime;
+        balloonInstance.transform.position = this.transform.position + this.transform.forward * 0.09f;
+        
 
     }
 
@@ -88,10 +110,13 @@ public class ControllerInput : MonoBehaviour {
         if (balloonInstance != null)
         {
             balloonInstance.transform.parent = null;
+            balloonInstance.GetComponent<ConstantForce>().enabled = true;
             balloonInstance = null;
+          
 
 
         }
+       
     }
 
  
