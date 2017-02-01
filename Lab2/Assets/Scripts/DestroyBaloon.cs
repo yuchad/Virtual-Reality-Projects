@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class DestroyBaloon : MonoBehaviour {
 
+    public int health = 1;
 	// Use this for initialization
 	void Start () {
         Destroy(gameObject, 10.5f);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        
-		
-	}
+	public void Damage(int damageAmount)
+    {
+        health -= damageAmount;
+        if(health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }

@@ -11,6 +11,17 @@ public class ControllerInput : MonoBehaviour {
     public Rigidbody yellowBalloon;
     public float startTime;
 
+    public int gunDamage = 1;
+    public float fireRate = 0.25f;
+    public float weaponRange = 50f;//50 units of range
+    public float hitForce = 100f;
+    public Transform gunEnd;
+
+    private WaitForSeconds shotDuration = new WaitForSeconds(0.7f);//determine how long to keep in game view
+    private LineRenderer laserLine;
+    private float nextFire;//Time player will be allowed to fire
+    private Camera fpsCam;
+
     private float initialScale;
     private float maxSize;
     private Vector3 baseScale;
@@ -26,6 +37,8 @@ public class ControllerInput : MonoBehaviour {
         contDevice = SteamVR_Controller.Input((int)trackedObj.index);
         maxSize = 0.12f;
         initialScale = 0.005f;
+        laserLine = GetComponent<LineRenderer>();
+        fpsCam = GetComponentInParent<Camera>();
     }
 
 
@@ -89,6 +102,39 @@ public class ControllerInput : MonoBehaviour {
             
         }
 
+        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Trigger)) && Time.time > nextFire){
+            
+            nextFire = Time.time + fireRate;
+            
+            StartCoroutine(ShotEffect());
+            /*
+            Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            laserLine.SetPosition(0, this.transform.position + this.transform.forward);
+            if(Physics.Raycast(rayOrigin,fpsCam.transform.forward,out hit, weaponRange))
+            {
+                laserLine.SetPosition(1, hit.point);
+
+                DestroyBaloon health = hit.collider.GetComponent<DestroyBaloon>();
+
+                if (health != null)
+                {
+                    health.Damage(gunDamage);
+                }
+
+                if (hit.rigidbody != null)
+                {
+                    hit.rigidbody.AddForce(-hit.normal * hitForce);
+                }
+            }
+            else
+            {
+                laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+            }*/
+            print("hello");
+        }
+
 
 
     }
@@ -113,14 +159,19 @@ public class ControllerInput : MonoBehaviour {
             balloonInstance.transform.parent = null;
             balloonInstance.GetComponent<ConstantForce>().enabled = true;
             balloonInstance = null;
-          
-
-
         }
        
     }
 
- 
+    private IEnumerator ShotEffect()
+    {
+        laserLine.enabled = true;
+        yield return shotDuration;
+        laserLine.enabled = false;
+
+    }
+
+
 
 
 
