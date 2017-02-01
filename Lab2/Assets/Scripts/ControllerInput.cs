@@ -36,47 +36,38 @@ public class ControllerInput : MonoBehaviour {
             if(touchpad.y > 0.65f)
             {
                 makeBalloon(redBalloon);
-                StartCoroutine(ScaleOverTime(1));
-                blowUpFinished = true;
+                releaseBaloon();
+                
             }
 
             //control down on trackpad
             else if (touchpad.y < -0.65f)
             {
                 makeBalloon(blueBalloon);
-                StartCoroutine(ScaleOverTime(1));
-                blowUpFinished = true;
+                releaseBaloon();
+                
             }
 
             //Control left on the touchpad
             else if (touchpad.x < 0.65f)
             {
                 makeBalloon(greenBalloon);
-                StartCoroutine(ScaleOverTime(1));
-                blowUpFinished = true;
+                releaseBaloon();
+                
             }
 
             //Control right on the touchpad
             else if (touchpad.x > -0.65f)
             {
                 makeBalloon(yellowBalloon);
-                StartCoroutine(ScaleOverTime(1));
-                blowUpFinished = true;
-            }
-
-        }
-
-        if (contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
-        {
-            if(blowUpFinished == true)
-            {
                 releaseBaloon();
-                blowUpFinished = false;
+                    
+                
             }
-            
+
         }
 
-
+   
 
     }
 
@@ -85,7 +76,7 @@ public class ControllerInput : MonoBehaviour {
         balloonInstance = Instantiate(balloon);
         balloonInstance.transform.parent = this.transform;
         balloonInstance.transform.position = this.transform.position + this.transform.forward * 0.12f;
-        
+       
     }
 
     void releaseBaloon()
@@ -97,6 +88,7 @@ public class ControllerInput : MonoBehaviour {
         }
     }
 
+    
     IEnumerator ScaleOverTime(float time)
     {
         Vector3 originalScale = balloonInstance.transform.localScale;
@@ -113,6 +105,7 @@ public class ControllerInput : MonoBehaviour {
         }
         
     }
+    
 
 
 }
