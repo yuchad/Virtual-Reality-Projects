@@ -98,11 +98,10 @@ public class ControllerInput : MonoBehaviour {
             
         }
 
-        if ((contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) && Time.time > nextFire){
+        if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Trigger)) ){
             
-            nextFire = Time.time + fireRate;
+           
             DestroyBaloon health;
-            int layerMask = 1 << 8;
             StartCoroutine(ShotEffect());
             
             laserLine.SetPosition(0, this.transform.position);
@@ -120,9 +119,14 @@ public class ControllerInput : MonoBehaviour {
             else {
                 laserLine.SetPosition(1, this.transform.position + this.transform.forward * weaponRange);
             }
+
            
 
 
+        }
+
+        if ((contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))){
+            laserLine.enabled = false;
         }
 
 
@@ -156,8 +160,8 @@ public class ControllerInput : MonoBehaviour {
     private IEnumerator ShotEffect()
     {
         laserLine.enabled = true;
-        yield return shotDuration;
-        laserLine.enabled = false;
+        yield return null;
+
 
     }
 
