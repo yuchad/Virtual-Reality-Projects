@@ -15,6 +15,8 @@ public class DestroyBaloon : MonoBehaviour {
         health -= damageAmount;
         if(health <= 0)
         {
+            print("bye bye");
+
             gameObject.SetActive(false);
         }
     }

@@ -37,7 +37,6 @@ public class ControllerInput : MonoBehaviour {
         maxSize = 0.12f;
         initialScale = 0.005f;
         laserLine = GetComponent<LineRenderer>();
-        fpsCam = GetComponentInParent<Camera>();
     }
 
 
@@ -89,8 +88,6 @@ public class ControllerInput : MonoBehaviour {
         if (contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
         {
             releaseBaloon();
-            
-
         }
 
         if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Touchpad)))
@@ -109,17 +106,22 @@ public class ControllerInput : MonoBehaviour {
             StartCoroutine(ShotEffect());
             
             laserLine.SetPosition(0, this.transform.position);
-            laserLine.SetPosition(1, this.transform.position + this.transform.forward );
-            /*RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward * 10, out hit, 10.0f, layerMask)) {
+            
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position, this.transform.forward , out hit, weaponRange)) {
                 health = hit.collider.gameObject.GetComponent<DestroyBaloon>();
-
+                laserLine.SetPosition(1, hit.point);
                 if (health != null) {
                     // Call the damage function of that script, passing in our gunDamage variable
                     health.Damage(gunDamage);
                 }
+                print("yes");
+            }
+            else {
+                laserLine.SetPosition(1, this.transform.position + this.transform.forward * weaponRange);
+            }
+           
 
-            }*/
 
         }
 
