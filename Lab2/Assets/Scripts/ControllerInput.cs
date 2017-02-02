@@ -113,7 +113,7 @@ public class ControllerInput : MonoBehaviour {
         }
 
         if ((contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Grip))) {
-            particleInstance.Stop();
+            destroyParticles();
         }
 
 
@@ -132,12 +132,7 @@ public class ControllerInput : MonoBehaviour {
 
     }
 
-    void makeParticles(ParticleSystem particles) {
-        particleInstance = Instantiate(particle);
-        particleInstance.transform.parent = this.transform;
-        particleInstance.transform.position = this.transform.position + this.transform.forward * 0.09f;
-
-    }
+    
 
     void releaseBaloon() {
         if (balloonInstance != null) {
@@ -155,6 +150,20 @@ public class ControllerInput : MonoBehaviour {
 
     }
 
+    void makeParticles(ParticleSystem particles) {
+        particleInstance = Instantiate(particle);
+        particleInstance.transform.parent = this.transform;
+        particleInstance.transform.position = this.transform.position + this.transform.forward * 0.5f;
+
+    }
+
+    void destroyParticles() {
+        if (particleInstance != null) {
+            particleInstance.transform.parent = null;
+            particleInstance.Stop();
+            particleInstance = null;
+        }
+    }
 
 
 
@@ -163,4 +172,5 @@ public class ControllerInput : MonoBehaviour {
 
 
 
-}
+
+    }
