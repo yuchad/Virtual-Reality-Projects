@@ -5,8 +5,18 @@
 
 //	Place your attributions below:
 
-Unity3D Let's Try shooting with Raycasts
+1. Unity3D Let's Try shooting with Raycasts
 
 https://unity3d.com/learn/tutorials/lets-try/shooting-with-raycasts?playlist=41639
 
 Used raycasting code 
+
+2. Cube Space - Effects from Asset store
+	particle Systems
+	Swift Games
+
+Used to create confetti
+
+3. SteamVR plugin from asset store
+
+Used to control head movement and tracking of controllers
