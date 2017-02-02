@@ -9,6 +9,7 @@ public class ControllerInput : MonoBehaviour {
     public Rigidbody blueBalloon;
     public Rigidbody greenBalloon;
     public Rigidbody yellowBalloon;
+    public ParticleSystem particle;
     public float startTime;
 
     public int gunDamage = 1;
@@ -16,11 +17,10 @@ public class ControllerInput : MonoBehaviour {
     public float weaponRange = 50f;//50 units of range
     public float hitForce = 100f;
 
-    private WaitForSeconds shotDuration = new WaitForSeconds(0.7f);//determine how long to keep in game view
     private LineRenderer laserLine;
     private float nextFire;//Time player will be allowed to fire
     private Camera fpsCam;
-
+    private ParticleSystem particleInstance;
     private float initialScale;
     private float maxSize;
     private Vector3 baseScale;
@@ -109,6 +109,11 @@ public class ControllerInput : MonoBehaviour {
 
         if ((contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Grip))) {
             print("you presssed grip");
+            makeParticles(particle);
+        }
+
+        if ((contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Grip))) {
+            particleInstance.Stop();
         }
 
 
@@ -124,6 +129,13 @@ public class ControllerInput : MonoBehaviour {
         balloonInstance.transform.parent = this.transform;
         balloonInstance.transform.position = this.transform.position + this.transform.forward * 0.09f;
 
+
+    }
+
+    void makeParticles(ParticleSystem particles) {
+        particleInstance = Instantiate(particle);
+        particleInstance.transform.parent = this.transform;
+        particleInstance.transform.position = this.transform.position + this.transform.forward * 0.09f;
 
     }
 
