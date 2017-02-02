@@ -51,30 +51,21 @@ public class ControllerInput : MonoBehaviour {
             //control up on trackpad
             if (touchpad.y > 0.65f) {
                 makeBalloon(redBalloon);
-                // releaseBaloon();
-
             }
 
             //control down on trackpad
             else if (touchpad.y < -0.65f) {
                 makeBalloon(blueBalloon);
-                //releaseBaloon();
-
             }
 
             //Control left on the touchpad
             else if (touchpad.x < 0.65f) {
                 makeBalloon(greenBalloon);
-                // releaseBaloon();
-
             }
 
             //Control right on the touchpad
             else if (touchpad.x > -0.65f) {
                 makeBalloon(yellowBalloon);
-                //releaseBaloon();
-
-
             }
 
         }
@@ -95,9 +86,7 @@ public class ControllerInput : MonoBehaviour {
 
             DestroyBaloon health;
             StartCoroutine(ShotEffect());
-
             laserLine.SetPosition(0, this.transform.position);
-
             RaycastHit hit;
             if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, weaponRange)) {
                 health = hit.collider.gameObject.GetComponent<DestroyBaloon>();
@@ -106,19 +95,20 @@ public class ControllerInput : MonoBehaviour {
                     // Call the damage function of that script, passing in our gunDamage variable
                     health.Damage(gunDamage);
                 }
-                print("yes");
             }
             else {
                 laserLine.SetPosition(1, this.transform.position + this.transform.forward * weaponRange);
             }
 
 
-
-
         }
 
         if ((contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))) {
             laserLine.enabled = false;
+        }
+
+        if ((contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Grip))) {
+            print("you presssed grip");
         }
 
 
