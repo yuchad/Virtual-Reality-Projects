@@ -47,7 +47,7 @@ public class ControllerInput : MonoBehaviour {
     void Update() {
         if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
             Vector2 touchpad = (contDevice.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad));
-
+           
             //control up on trackpad
             if (touchpad.y > 0.65f) {
                 makeBalloon(redBalloon);
@@ -67,6 +67,7 @@ public class ControllerInput : MonoBehaviour {
             else if (touchpad.x > -0.65f) {
                 makeBalloon(yellowBalloon);
             }
+            
 
         }
 
@@ -75,6 +76,7 @@ public class ControllerInput : MonoBehaviour {
         }
 
         if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Touchpad))) {
+            contDevice.TriggerHapticPulse(500);
             if (balloonInstance.transform.localScale.x < maxSize) {
                 balloonInstance.transform.localScale += new Vector3(initialScale, initialScale, initialScale);
             }
@@ -99,6 +101,7 @@ public class ControllerInput : MonoBehaviour {
             else {
                 laserLine.SetPosition(1, this.transform.position + this.transform.forward * weaponRange);
             }
+            contDevice.TriggerHapticPulse(200);
 
 
         }
@@ -108,7 +111,7 @@ public class ControllerInput : MonoBehaviour {
         }
 
         if ((contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Grip))) {
-            print("you presssed grip");
+            contDevice.TriggerHapticPulse(2000);
             makeParticles(particle);
         }
 
@@ -128,7 +131,7 @@ public class ControllerInput : MonoBehaviour {
         balloonInstance = Instantiate(balloon);
         balloonInstance.transform.parent = this.transform;
         balloonInstance.transform.position = this.transform.position + this.transform.forward * 0.09f;
-
+       
 
     }
 
