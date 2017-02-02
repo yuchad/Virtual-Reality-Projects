@@ -34,7 +34,7 @@ public class ControllerInput : MonoBehaviour {
     void Start() {
         trackedObj = this.GetComponent<SteamVR_TrackedObject>();
         contDevice = SteamVR_Controller.Input((int)trackedObj.index);
-        maxSize = 0.12f;
+        maxSize = 0.15f;
         initialScale = 0.005f;
         laserLine = GetComponent<LineRenderer>();
     }
@@ -76,9 +76,10 @@ public class ControllerInput : MonoBehaviour {
         }
 
         if ((contDevice.GetPress(SteamVR_Controller.ButtonMask.Touchpad))) {
-            contDevice.TriggerHapticPulse(500);
+           
             if (balloonInstance.transform.localScale.x < maxSize) {
                 balloonInstance.transform.localScale += new Vector3(initialScale, initialScale, initialScale);
+                contDevice.TriggerHapticPulse(500);
             }
 
         }
