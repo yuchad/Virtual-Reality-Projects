@@ -152,7 +152,7 @@ public class ControllerInput : MonoBehaviour {
 
     void makeParticles(ParticleSystem particles) {
         particleInstance = Instantiate(particle);
-        particleInstance.transform.parent = this.transform;
+        //particleInstance.transform.parent = this.transform;
         particleInstance.transform.position = this.transform.position + this.transform.forward * 0.5f;
 
     }
