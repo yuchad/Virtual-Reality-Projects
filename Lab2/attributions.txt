@@ -1,0 +1,22 @@
+// Delete two of the following three lines, leaving only the true statement and fill in the blanks.
+
+1) I've completed this statement by myself entirely.
+
+
+//	Place your attributions below:
+
+1. Unity3D Let's Try shooting with Raycasts
+
+https://unity3d.com/learn/tutorials/lets-try/shooting-with-raycasts?playlist=41639
+
+Used raycasting code 
+
+2. Cube Space - Effects from Asset store
+	particle Systems
+	Swift Games
+
+Used to create confetti
+
+3. SteamVR plugin from asset store
+
+Used to control head movement and tracking of controllers
