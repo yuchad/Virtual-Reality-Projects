@@ -1,0 +1,20 @@
+// Delete two of the following three lines, leaving only the true statement and fill in the blanks.
+
+1) I've completed this statement by myself entirely.
+2) I've recieved verbal/minor help from _________________
+3) I've recieved major help/code from ______________________
+
+
+//	Place your attributions below:
+//
+//	Example:
+//
+//	Toy Balloonship by NV3D licenced under Unity-EULA
+//	https://www.assetstore.unity3d.com/en/#!/content/370
+//	https://unity3d.com/legal/as_terms
+//
+//  MinBy() by Jon Skeet Licenced under CC-by-SA
+//	http://stackoverflow.com/questions/914109/how-to-use-linq-to-select-object-with-minimum-or-maximum-property-value
+//	https://stackoverflow.blog/2009/06/attribution-required/
+
+
