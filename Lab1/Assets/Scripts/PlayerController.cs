@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
         count = 0;
         winText.text = "";
         setCountText();
+        print("hello");
     }
 
     void Update()
