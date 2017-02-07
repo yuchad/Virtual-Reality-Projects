@@ -51,8 +51,20 @@ public class ControllerInput : MonoBehaviour {
             laserLine.enabled = false;
             reticle.SetActive(false);
         }
+
+        if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && canTeleport == true) {
+            Teleport();
+        }
         
 	}
+
+    private void Teleport() {
+        canTeleport = false;
+        reticle.SetActive(false);
+        Vector3 difference = cameraRigTransform.position - headTransform.position;
+        difference.y = 0;
+        cameraRigTransform.position = hitpoint + difference;
+    }
 
    
 }
