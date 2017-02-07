@@ -43,27 +43,31 @@ public class ControllerInput : MonoBehaviour {
                 }
                 
             }
-           
-               
-            
+              
         }
         else if (contDevice.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad)) {
             laserLine.enabled = false;
             reticle.SetActive(false);
         }
 
+
         if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && canTeleport == true) {
-            Teleport();
+            laserLine.enabled = false;
+            reticle.SetActive(false);
+            SteamVR_Fade.View(Color.black, 2f);
+            Invoke("Teleport",2f);
         }
         
 	}
 
     private void Teleport() {
+       
         canTeleport = false;
         reticle.SetActive(false);
         Vector3 difference = cameraRigTransform.position - headTransform.position;
         difference.y = 0;
         cameraRigTransform.position = hitpoint + difference;
+        SteamVR_Fade.View(new Color(0, 0, 0, 0), 2f);
     }
 
    
