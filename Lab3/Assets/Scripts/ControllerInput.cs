@@ -17,6 +17,8 @@ public class ControllerInput : MonoBehaviour {
     private Transform teleportReticleTransform;
     private bool canTeleport;
     private Vector3 hitpoint;
+    private Vector3 movePoint;
+    private bool isTracking;
     // Use this for initialization
     void Start () {
         trackedObj = this.GetComponent<SteamVR_TrackedObject>();
@@ -50,24 +52,27 @@ public class ControllerInput : MonoBehaviour {
             reticle.SetActive(false);
         }
 
+        
 
-        if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && canTeleport == true) {
-            laserLine.enabled = false;
-            reticle.SetActive(false);
+
+        if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && canTeleport) {
             SteamVR_Fade.View(Color.black, 2f);
+            movePoint = hitpoint;
             Invoke("Teleport",2f);
+            
         }
         
 	}
 
     private void Teleport() {
-       
-        canTeleport = false;
-        reticle.SetActive(false);
-        Vector3 difference = cameraRigTransform.position - headTransform.position;
-        difference.y = 0;
-        cameraRigTransform.position = hitpoint + difference;
-        SteamVR_Fade.View(new Color(0, 0, 0, 0), 2f);
+            
+            canTeleport = false;
+            reticle.SetActive(false);
+            Vector3 difference = cameraRigTransform.position - headTransform.position;
+            difference.y = 0;
+            cameraRigTransform.position = movePoint + difference;
+            SteamVR_Fade.View(new Color(0, 0, 0, 0), 2f);
+        
     }
 
    
