@@ -71,10 +71,10 @@ public class GrabAndRelease : MonoBehaviour {
     public void OnTriggerEnter(Collider other) {
         SetCollidingObject(other);
     }
-    /*
+    
     public void OnTriggerStay(Collider other) {
         SetCollidingObject(other);
-    }*/
+    }
 
     public void OnTriggerExit(Collider other) {
         if (!collidingObject) {
