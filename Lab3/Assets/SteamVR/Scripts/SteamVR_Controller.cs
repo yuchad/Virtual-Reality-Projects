@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using System;
 using UnityEngine;
 using Valve.VR;
 
@@ -42,9 +43,13 @@ public class SteamVR_Controller
 		public bool calibrating { get { Update(); return pose.eTrackingResult == ETrackingResult.Calibrating_InProgress || pose.eTrackingResult == ETrackingResult.Calibrating_OutOfRange; } }
 		public bool uninitialized { get { Update(); return pose.eTrackingResult == ETrackingResult.Uninitialized; } }
 
-		// These values are only accurate for the last controller state change (e.g. trigger release), and by definition, will always lag behind
-		// the predicted visual poses that drive SteamVR_TrackedObjects since they are sync'd to the input timestamp that caused them to update.
-		public SteamVR_Utils.RigidTransform transform { get { Update(); return new SteamVR_Utils.RigidTransform(pose.mDeviceToAbsoluteTracking); } }
+        internal bool GetHairTriggerDown(ulong trigger) {
+            throw new NotImplementedException();
+        }
+
+        // These values are only accurate for the last controller state change (e.g. trigger release), and by definition, will always lag behind
+        // the predicted visual poses that drive SteamVR_TrackedObjects since they are sync'd to the input timestamp that caused them to update.
+        public SteamVR_Utils.RigidTransform transform { get { Update(); return new SteamVR_Utils.RigidTransform(pose.mDeviceToAbsoluteTracking); } }
 		public Vector3 velocity { get { Update(); return new Vector3(pose.vVelocity.v0, pose.vVelocity.v1, -pose.vVelocity.v2); } }
 		public Vector3 angularVelocity { get { Update(); return new Vector3(-pose.vAngularVelocity.v0, -pose.vAngularVelocity.v1, pose.vAngularVelocity.v2); } }
 
