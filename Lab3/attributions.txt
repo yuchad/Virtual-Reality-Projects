@@ -18,3 +18,7 @@ Pro Western Starter Pack
 
 Taken from Unity Asset Store to build scene
 
+STEAMVR 
+
+    SteamVR Plugin taken from asset Store
+    Used Teleportation prefab as indicator
