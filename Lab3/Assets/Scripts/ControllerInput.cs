@@ -67,11 +67,13 @@ public class ControllerInput : MonoBehaviour {
         if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) {
             if (collidingObject) {
                 GrabObject();
+                print("grab");
             }
         }
         else if (contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Trigger)) {
             if (objectInHand) {
                 ReleaseObject();
+                print("release");
             }
         }
 
@@ -102,6 +104,7 @@ public class ControllerInput : MonoBehaviour {
         objectInHand = collidingObject;
         collidingObject = null;
         var joint = AddFixedJoint();
+        joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
         
     }
 
