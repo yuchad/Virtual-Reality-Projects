@@ -19,6 +19,11 @@ public class ControllerInput : MonoBehaviour {
     private Vector3 hitpoint;
     private Vector3 movePoint;
     private bool isTracking;
+    private GameObject collidingObject;
+    private GameObject objectInHand;
+
+
+
     // Use this for initialization
     void Start () {
         trackedObj = this.GetComponent<SteamVR_TrackedObject>();
@@ -52,15 +57,25 @@ public class ControllerInput : MonoBehaviour {
             reticle.SetActive(false);
         }
 
-        
-
-
+       
         if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && canTeleport) {
             SteamVR_Fade.View(Color.black, 2f);
             movePoint = hitpoint;
-            Invoke("Teleport",2f);
-            
+            Invoke("Teleport",2f);           
         }
+
+        if (contDevice.GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) {
+            if (collidingObject) {
+                GrabObject();
+            }
+        }
+        else if (contDevice.GetPressUp(SteamVR_Controller.ButtonMask.Trigger)) {
+            if (objectInHand) {
+                ReleaseObject();
+            }
+        }
+
+        
         
 	}
 
@@ -75,5 +90,56 @@ public class ControllerInput : MonoBehaviour {
         
     }
 
-   
+    private void SetCollidingObject(Collider col) {
+        if(collidingObject || !col.GetComponent<Rigidbody>()) {
+            return;
+        }
+
+        collidingObject = col.gameObject;
+    }
+
+    private void GrabObject() {
+        objectInHand = collidingObject;
+        collidingObject = null;
+        var joint = AddFixedJoint();
+        
+    }
+
+    private FixedJoint AddFixedJoint() {
+        FixedJoint fx = gameObject.AddComponent<FixedJoint>();
+        fx.breakForce = 20000;
+        fx.breakTorque = 20000;
+        return fx;
+    }
+
+    private void ReleaseObject() {
+        if (GetComponent<FixedJoint>()) {
+
+            GetComponent<FixedJoint>().connectedBody = null;
+            Destroy(GetComponent<FixedJoint>());
+
+            objectInHand.GetComponent<Rigidbody>().velocity = contDevice.velocity;
+            objectInHand.GetComponent<Rigidbody>().angularVelocity = contDevice.angularVelocity;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other) {
+        SetCollidingObject(other);
+    }
+
+    public void OnTriggerStay(Collider other) {
+        SetCollidingObject(other);
+    }
+
+    public void OnTriggerExit(Collider other) {
+        if (!collidingObject) {
+            return;
+        }
+
+        collidingObject = null;
+    }
+
+
+
+
 }
