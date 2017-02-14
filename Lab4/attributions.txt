@@ -1,0 +1,24 @@
+// Delete two of the following three lines, leaving only the true statement and fill in the blanks.
+
+1) I've completed this statement by myself entirely.
+
+
+//	Place your attributions below:
+
+
+HTC Vive Tutorial Unity
+
+https://www.raywenderlich.com/149239/htc-vive-tutorial-unity
+
+	Used to create the teleportation method.
+	Used to create object manipulation.
+
+ 
+Pro Western Starter Pack
+
+Taken from Unity Asset Store to build scene
+
+STEAMVR 
+
+    SteamVR Plugin taken from asset Store
+    Used Teleportation prefab as indicator
