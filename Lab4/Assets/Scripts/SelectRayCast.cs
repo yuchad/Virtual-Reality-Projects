@@ -19,6 +19,9 @@ public class SelectRayCast : MonoBehaviour {
 	private MeshRenderer sphereMesh;
 	private MeshRenderer cubeMesh;
 	private MeshRenderer cylMesh;
+	private bool sphereSelected;
+	private bool cubeSelected;
+	private bool cylSelected;
 
 
 	// Use this for initialization
@@ -80,14 +83,23 @@ public class SelectRayCast : MonoBehaviour {
 					sphereMesh.sharedMaterial = myMaterials [1];
 					cubeMesh.sharedMaterial = myMaterials [0];
 					cylMesh.sharedMaterial = myMaterials [0];
+					sphereSelected = true;
+					cubeSelected = false;
+					cylSelected = false;
 				} else if (hit.collider.name == "Cube") {
 					sphereMesh.sharedMaterial = myMaterials [0];
 					cubeMesh.sharedMaterial = myMaterials [1];
 					cylMesh.sharedMaterial = myMaterials [0];
+					sphereSelected = false;
+					cubeSelected = true;
+					cylSelected = false;
 				} else if (hit.collider.name == "Cylinder") {
 					sphereMesh.sharedMaterial = myMaterials [0];
 					cubeMesh.sharedMaterial = myMaterials [0];
 					cylMesh.sharedMaterial = myMaterials [1];
+					sphereSelected = false;
+					cubeSelected = false;
+					cylSelected = true;
 				}
 			}
 
