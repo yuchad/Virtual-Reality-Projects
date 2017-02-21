@@ -26,7 +26,7 @@ public class PullLever : Interactable {
 
 	// References to child objects.
 	private Transform handle;
-	private Transform handleBar;
+	private Transform handleKnob;
 
 	// We also have access (from the base class) to:
 	// bool Stealable;
@@ -34,20 +34,20 @@ public class PullLever : Interactable {
 
 	void Start () {
 		handle = transform.FindChild("Handle");
-		//handleBar = handle.FindChild("HandleBar");
+		handleKnob = handle.FindChild("Sphere");
 		Value = handle.localPosition.x;
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+		
 		float newValue = Value;
 		if (attachedController != null)
 		{
 			Vector3 controllerPos = attachedController.transform.position;
 
 			// check to see if controller is too far from lever handle.
-			float distanceToHandleBar = Vector3.Distance(controllerPos, handleBar.position);
+			float distanceToHandleBar = Vector3.Distance(controllerPos, handleKnob.position);
 			if (distanceToHandleBar > BreakDistance)
 			{
 				// Send a click to the controller if we disconnect.
