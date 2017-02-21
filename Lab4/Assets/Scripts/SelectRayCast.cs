@@ -5,16 +5,31 @@ using UnityEngine;
 public class SelectRayCast : MonoBehaviour {
 
 	public LayerMask selectableMask;
-	public Material[] materials;
+	public Material[] myMaterials;
+	public GameObject mySphere;
+	public GameObject myCube;
+	public GameObject myCylinder;
 
 	private LineRenderer laserLine;
 	private SteamVR_TrackedObject trackedObj;
 	private SteamVR_Controller.Device contDevice;
+	private bool triggerDown;
+	private MeshRenderer myR;
+	private RaycastHit hit;
+	private MeshRenderer sphereMesh;
+	private MeshRenderer cubeMesh;
+	private MeshRenderer cylMesh;
+
+
 	// Use this for initialization
 	void Start () {
 		trackedObj = this.GetComponent<SteamVR_TrackedObject> ();
 		contDevice = SteamVR_Controller.Input((int)trackedObj.index);
 		laserLine = GetComponent<LineRenderer>();
+		sphereMesh = mySphere.GetComponent<MeshRenderer> ();
+		cubeMesh = myCube.GetComponent<MeshRenderer> ();
+		cylMesh = myCylinder.GetComponent<MeshRenderer> ();
+
 	}
 	
 	// Update is called once per frame
@@ -39,22 +54,44 @@ public class SelectRayCast : MonoBehaviour {
 			laserLine.enabled = true;
 			laserLine.SetPosition (0, this.transform.position);
 			laserLine.SetPosition(1, this.transform.position + this.transform.forward * 50);
-			RaycastHit hit;
+
 
 			if (Physics.Raycast (trackedObj.transform.position, transform.forward, out hit, 100, selectableMask)) {
 				laserLine.SetPosition (1, hit.point);
+	
 				if (hit.rigidbody != null) {
-					MeshRenderer myR = hit.rigidbody.GetComponent<MeshRenderer> ();
-					/*
-					if (myR != null) {
-						print ("test");
-						print (materials [1]);
-					}
-					*/
+					triggerDown = true;
+					 //myR = hit.rigidbody.GetComponent<MeshRenderer>();
+
+
 				}
 			}
-		} else if (contDevice.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
+		} 
+
+		else if (contDevice.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
 			laserLine.enabled = false;
+			triggerDown = false;
+		}
+
+		if (contDevice.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad) && triggerDown == true) {
+
+			if (hit.collider != null) {
+				if (hit.collider.name == "Sphere") {
+					sphereMesh.sharedMaterial = myMaterials [1];
+					cubeMesh.sharedMaterial = myMaterials [0];
+					cylMesh.sharedMaterial = myMaterials [0];
+				} else if (hit.collider.name == "Cube") {
+					sphereMesh.sharedMaterial = myMaterials [0];
+					cubeMesh.sharedMaterial = myMaterials [1];
+					cylMesh.sharedMaterial = myMaterials [0];
+				} else if (hit.collider.name == "Cylinder") {
+					sphereMesh.sharedMaterial = myMaterials [0];
+					cubeMesh.sharedMaterial = myMaterials [0];
+					cylMesh.sharedMaterial = myMaterials [1];
+				}
+			}
+
+
 		}
 	}
 }
