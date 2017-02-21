@@ -53,7 +53,7 @@ public class SelectRayCast : MonoBehaviour {
 			laserLine.enabled = false;
 		}*/
 
-		if (contDevice.GetPress (SteamVR_Controller.ButtonMask.Trigger)) {
+		if (contDevice.GetPress (SteamVR_Controller.ButtonMask.Touchpad)) {
 			laserLine.enabled = true;
 			laserLine.SetPosition (0, this.transform.position);
 			laserLine.SetPosition(1, this.transform.position + this.transform.forward * 50);
@@ -71,12 +71,12 @@ public class SelectRayCast : MonoBehaviour {
 			}
 		} 
 
-		else if (contDevice.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
+		else if (contDevice.GetPressUp (SteamVR_Controller.ButtonMask.Touchpad)) {
 			laserLine.enabled = false;
 			triggerDown = false;
 		}
 
-		if (contDevice.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad) && triggerDown == true) {
+		if (contDevice.GetPressDown (SteamVR_Controller.ButtonMask.Trigger) && triggerDown == true) {
 
 			if (hit.collider != null) {
 				if (hit.collider.name == "Sphere") {
@@ -101,6 +101,13 @@ public class SelectRayCast : MonoBehaviour {
 					cubeSelected = false;
 					cylSelected = true;
 				}
+			} else if (hit.collider == null) {
+				sphereMesh.sharedMaterial = myMaterials [0];
+				cubeMesh.sharedMaterial = myMaterials [0];
+				cylMesh.sharedMaterial = myMaterials [0];
+				sphereSelected = false;
+				cubeSelected = false;
+				cylSelected = false;
 			}
 
 
