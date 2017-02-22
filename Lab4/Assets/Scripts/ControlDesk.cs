@@ -6,12 +6,12 @@ public class ControlDesk : MonoBehaviour
 {
 
     public Transform SelectedObject;
-	public GameObject sphereSelected;
+	public GameObject cylSelected;
 	public Material[] myMaterial;
-	private MeshRenderer sphereMesh;
+	private MeshRenderer cylMesh;
 
 	void start(){
-		sphereMesh = sphereSelected.GetComponent<MeshRenderer>();
+		
 	}
 
     public void SetX(float x)
@@ -34,8 +34,11 @@ public class ControlDesk : MonoBehaviour
     }
 
 	public void setColour(){
-		sphereMesh.sharedMaterial = myMaterial [0];
-		print ("new colour");
+		bool isSet;
+	
+			cylMesh = cylSelected.GetComponent<MeshRenderer> ();
+			cylMesh.sharedMaterial = myMaterial [0];
+
 	}
 
 }

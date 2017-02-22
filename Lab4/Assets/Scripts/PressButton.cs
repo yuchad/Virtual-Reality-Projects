@@ -27,6 +27,7 @@ public class PressButton : Interactable {
 	// References to child objects.
 	private Transform button;
 
+
 	// We also have access (from the base class) to:
 	// bool Stealable;
 	// WandController attachedController;
