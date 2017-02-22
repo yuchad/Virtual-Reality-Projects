@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PullLever : Interactable {
+public class PressButton : Interactable {
 
 	public float Value;                 // Between -0.5 and 0.5
 	[Header("Configuration")]
@@ -25,37 +25,25 @@ public class PullLever : Interactable {
 	const float leverLocalXRange = .2f;
 
 	// References to child objects.
-	private Transform handle;
-	private Transform handleKnob;
+	private Transform button;
 
 	// We also have access (from the base class) to:
 	// bool Stealable;
 	// WandController attachedController;
 
 	void Start () {
-		handle = transform.FindChild("Handle");
-		handleKnob = handle.FindChild("Sphere");
-		Value = handle.localPosition.y;
+		button = transform.FindChild ("Button");
+		Value = button.localPosition.y;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		
 		float newValue = Value;
 		if (attachedController != null)
 		{
 			Vector3 controllerPos = attachedController.transform.position;
 
-			// check to see if controller is too far from lever handle.
-			float distanceToHandleBar = Vector3.Distance(controllerPos, handleKnob.position);
-			if (distanceToHandleBar > BreakDistance)
-			{
-				// Send a click to the controller if we disconnect.
-				attachedController.input.TriggerHapticPulse(2999);
-				DetachController();
-				print ("test");
-				return;
-			}
+		
 
 			// Find the controller coordinate in local space (position, orientation and scale independent);
 			Vector3 localPos = this.transform.InverseTransformPoint(controllerPos);
@@ -89,20 +77,14 @@ public class PullLever : Interactable {
 		Value = newValue;
 
 		// We need to copy the Vector because it is a property struct.
-		Vector3 oldPos = handle.localPosition;
+		Vector3 oldPos = button.localPosition;
 		oldPos.y = Value;
-		handle.localPosition = oldPos;
+		button.localPosition = oldPos;
 
-	}
-
-	public override void OnHoverEnter(WandController ctrl)
-	{
-		ctrl.input.TriggerHapticPulse((ushort)(500 * hoverHaptics));
-		handle.GetComponent<MeshRenderer>();
 	}
 }
 
 // A UnityEvent is a field that allows you to setup a callback using the inspector.
 // However, if you want your event to take parameters, you have to make a subclass
 // This is simply because the inspector doesn't support generics.
-//[Serializable] public class FloatEvent : UnityEvent<float> { }
+[Serializable] public class FloatEvent : UnityEvent<float> { }
