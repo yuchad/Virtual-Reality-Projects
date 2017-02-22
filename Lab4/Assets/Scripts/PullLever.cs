@@ -22,7 +22,7 @@ public class PullLever : Interactable {
 	public FloatEvent OnValueChanged;
 
 	// We assume that the lever is 1 unit long.
-	const float leverLocalXRange = .5f;
+	const float leverLocalXRange = .2f;
 
 	// References to child objects.
 	private Transform handle;
@@ -35,7 +35,7 @@ public class PullLever : Interactable {
 	void Start () {
 		handle = transform.FindChild("Handle");
 		handleKnob = handle.FindChild("Sphere");
-		Value = handle.localPosition.x;
+		Value = handle.localPosition.y;
 	}
 
 	// Update is called once per frame
@@ -53,29 +53,30 @@ public class PullLever : Interactable {
 				// Send a click to the controller if we disconnect.
 				attachedController.input.TriggerHapticPulse(2999);
 				DetachController();
+				print ("test");
 				return;
 			}
 
 			// Find the controller coordinate in local space (position, orientation and scale independent);
 			Vector3 localPos = this.transform.InverseTransformPoint(controllerPos);
 			// Take only the movement along the lever's axis.
-			float TargetX = localPos.x;
+			float TargetY = localPos.y;
 
 			// Limit the Lever's movent to its effective range.
-			TargetX = Mathf.Clamp(TargetX, -leverLocalXRange, leverLocalXRange);
+			TargetY = Mathf.Clamp(TargetY, -leverLocalXRange, leverLocalXRange);
 
 			// Find the difference of the coordinates. We use this to find out when to stop
 			// animating the lever, as well as to provide haptic feedback to simulate resistance
-			float xDistance = Mathf.Abs(TargetX - Value);
-			if (xDistance > Accuracy)
+			float yDistance = Mathf.Abs(TargetY - Value);
+			if (yDistance > Accuracy)
 			{
 
-				float hapticStrength = 2999 * (xDistance + .1f) * dragHaptics;
+				float hapticStrength = 2999 * (yDistance + .1f) * dragHaptics;
 				hapticStrength = Mathf.Clamp(hapticStrength, 0, 2999);
 				attachedController.input.TriggerHapticPulse((ushort) hapticStrength);
 
 				//This approximates our target in a smooth fashion.
-				newValue = Mathf.Lerp(Value, TargetX, (1 / pullDelay) * Time.deltaTime);
+				newValue = Mathf.Lerp(Value, TargetY, (1 / pullDelay) * Time.deltaTime);
 			}
 		}
 		else if (isSpring)
@@ -89,7 +90,7 @@ public class PullLever : Interactable {
 
 		// We need to copy the Vector because it is a property struct.
 		Vector3 oldPos = handle.localPosition;
-		oldPos.x = Value;
+		oldPos.y = Value;
 		handle.localPosition = oldPos;
 
 	}
