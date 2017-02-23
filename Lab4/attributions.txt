@@ -6,19 +6,15 @@
 //	Place your attributions below:
 
 
-HTC Vive Tutorial Unity
-
-https://www.raywenderlich.com/149239/htc-vive-tutorial-unity
-
-	Used to create the teleportation method.
-	Used to create object manipulation.
-
- 
-Pro Western Starter Pack
-
-Taken from Unity Asset Store to build scene
 
 STEAMVR 
 
     SteamVR Plugin taken from asset Store
-    Used Teleportation prefab as indicator
+    Used some meshes
+
+
+Lab4 Example
+	Used wandcontroller, ControlDesk and Interactable scripts variations in lab.
+	PullLever and PressButton script are based off script given in lab4 example.
+
+

@@ -53,7 +53,6 @@ public class PullLever : Interactable {
 				// Send a click to the controller if we disconnect.
 				attachedController.input.TriggerHapticPulse(2999);
 				DetachController();
-				print ("test");
 				return;
 			}
 
